@@ -6,7 +6,7 @@ const initialState = {
   heroesLoadingStatus: 'idle',
 }
 
-export const fetchHeroes = createAsyncThunk('heroes/fethHeroes', () => {
+export const fetchHeroes = createAsyncThunk('heroes/fetchHeroes', () => {
   const { request } = useHttp()
   return request('http://localhost:3001/heroes')
 })
