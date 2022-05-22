@@ -3,14 +3,17 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
 import { heroCreated } from '../heroesList/heroesSlice'
+import store from '../../store'
+import { selectAll } from '../heroesFilters/filtersSlice'
+
 
 const HeroesAddForm = () => {
   const [heroName, setHeroName] = useState('')
   const [heroDescr, setHeroDescr] = useState('')
   const [heroElement, setHeroElement] = useState('')
-  const { filters, filtersLoadingStatus } = useSelector(
-    (state) => state.filters
-  )
+
+  const { filtersLoadingStatus } = useSelector((state) => state.filters)
+  const filters = selectAll(store.getState())
   const dispatch = useDispatch()
   const { request } = useHttp()
 
@@ -25,7 +28,6 @@ const HeroesAddForm = () => {
 
     request('http://localhost:3001/heroes', 'POST', JSON.stringify(newHero))
       .then(dispatch(heroCreated(newHero)))
-      .catch((err) => console.log(err))
 
     setHeroName('')
     setHeroDescr('')
@@ -41,6 +43,7 @@ const HeroesAddForm = () => {
 
     if (filters && filters.length > 0) {
       return filters.map(({ name, label }) => {
+
         if (name === 'all') return
 
         return (
@@ -64,7 +67,7 @@ const HeroesAddForm = () => {
           name="name"
           className="form-control"
           id="name"
-          placeholder="Имя героя"
+          placeholder="Как меня зовут?"
           value={heroName}
           onChange={(e) => setHeroName(e.target.value)}
         />
@@ -79,7 +82,7 @@ const HeroesAddForm = () => {
           name="text"
           className="form-control"
           id="text"
-          placeholder="Кто этот персонаж и что он умеет ?"
+          placeholder="Что я умею?"
           style={{ height: '130px' }}
           value={heroDescr}
           onChange={(e) => setHeroDescr(e.target.value)}
