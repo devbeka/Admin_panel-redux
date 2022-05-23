@@ -1,1 +1,1 @@
-This is test project with hero admin panel!
+This is an admin panel for creating heroes using Redux-Toolkit and Bootstrap
