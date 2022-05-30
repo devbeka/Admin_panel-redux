@@ -5,7 +5,6 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { heroDeleted, fetchHeroes, filteredHeroesSelector } from './heroesSlice'
 import HeroesListItem from '../heroesListItem/HeroesListItem'
 import Spinner from '../spinner/Spinner'
-
 import './style.scss'
 
 const HeroesList = () => {
